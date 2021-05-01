@@ -249,16 +249,13 @@ body {
 
   <script type="text/javascript">
     // Clock
-    var airlyHours = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23]; // when to fetch air quality
-    var meteoHours = [6, 12, 18]; // when to fetch forecast/news
-    var offset = 5; // offset in minutes
-    var days = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'];
+    var daysName = ['niedziela', 'poniedziałek', 'wtorek', 'środa', 'czwartek', 'piątek', 'sobota'];
     var months = ['stycznia', 'lutego', 'marca', 'kwietnia', 'maja', 'czerwca', 'lipca', 'sierpnia', 'września', 'października', 'listopada', 'grudnia'];
     function tick() {
       var today = new Date();
       var mo = months[today.getMonth()];
       var d = today.getDate();
-      var dw = days[today.getDay()];
+      var dw = daysName[today.getDay()];
       var h = today.getHours() + 2;
       var m = today.getMinutes();
       document.getElementById('time').innerHTML = h + ':' + (m < 10 ? '0' : '') + m + ' <span>' + dw + '<br>' + d + '. ' + mo + '</span>';
