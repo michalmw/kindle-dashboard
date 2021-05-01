@@ -114,9 +114,7 @@ body {
 }
 
 .ajax-section .cities {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: repeat(2, 1fr);
+  display: block;
   padding-left: 0;
 }
 
@@ -124,8 +122,8 @@ body {
   position: relative;
   padding: 40px 10%;
   border-radius: 20px;
-  background: var(--text_light);
-  color: var(--text_med);
+  float: left;
+  width: 40%;
 }
 
 .ajax-section .city::after {
