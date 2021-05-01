@@ -279,8 +279,13 @@ body {
       var sys = xml.sys;
       var weather = xml.weather;
       console.log('main', main);
+      var infoName = 'Aktualny domek:';
+      if (name === 'Gilowice') {
+        infoName = 'Przyszły domek:'
+      }
       // + ' <img class="city-icon" src="${icon}" alt="${weather[0]["description"]}"> ' +
       var markup = '<h2 class="city-name">'
+              + '<span>' + infoName + '</span><br />'
               + '<span>'+name+'</span> '
               + '</h2>'
               + '<div class="city-temp">' + Math.round(main.temp) + '<sup>°C</sup></div>'
@@ -293,7 +298,6 @@ body {
     }
 
     function getWeather(cityName) {
-      list.innerHTML = 'Odpalenie Funkcji';
       var inputVal = cityName;
 
       var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + inputVal + '&appid=' +apiKey + '&units=metric';
@@ -313,6 +317,7 @@ body {
     }
 
     getWeather('Kraków');
+    getWeather('Gilowice');
 
   </script>
 
