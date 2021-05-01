@@ -365,9 +365,14 @@ body {
       idEl.getElementsByClassName('seconds')[0].innerHTML = secs * -1;
 
     }
-    setInterval(() => countUpFromTime("May 17, 2021 11:00:00", 'countup1'), 1000);
-    setInterval(() =>  countUpFromTime("Jun 18, 2021 09:30:00", 'countup2'), 1000);
-    // countUpFromTime("May 17, 2021 11:00:00", 'countup1')
+    countUpFromTime("May 17, 2021 11:00:00", 'countup1');
+    countUpFromTime("Jun 18, 2021 09:30:00", 'countup2');
+    setInterval(function() {
+      countUpFromTime("May 17, 2021 11:00:00", 'countup1');
+    }, 1000);
+    setInterval(function() {
+      countUpFromTime("Jun 18, 2021 09:30:00", 'countup2');
+    }, 1000);
 
   </script>
 </body>
