@@ -287,7 +287,9 @@ figure, .city-icon {
       var main = xml.main;
       var sys = xml.sys;
       var weather = xml.weather;
-      var icon = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/'+weather[0]["icon"]+'.svg';
+      // var icon = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/'+weather[0]["icon"]+'.svg';
+      var icon = ' http://openweathermap.org/img/wn/'+weather[0]["icon"]+'@2x.png';
+      // http://openweathermap.org/img/wn/10d@2x.png
       console.log('main', main);
       var infoName = 'Aktualny domek:';
       if (name === 'Gilowice') {
