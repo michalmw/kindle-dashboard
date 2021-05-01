@@ -253,7 +253,7 @@ body {
       var mo = months[today.getMonth()];
       var d = today.getDate();
       var dw = days[today.getDay()];
-      var h = today.getHours();
+      var h = today.getHours() + 2;
       var m = today.getMinutes();
       document.getElementById('time').innerHTML = h + ':' + (m < 10 ? '0' : '') + m + ' <span>' + dw + '<br>' + d + '. ' + mo + '</span>';
     }
