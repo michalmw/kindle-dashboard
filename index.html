@@ -8,8 +8,7 @@
 body {
   position: relative;
   margin: 0 auto;
-  padding: 0;
-  max-width: 800px;
+  padding: 10px;
 }
 a {
   color: #000;
@@ -47,7 +46,9 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 20% 80%;;
   margin: 0 auto;
   padding: 0;
 }
@@ -109,7 +110,7 @@ body {
 
 /* SECTION #2
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.ajax-section {
+/* .ajax-section {
   margin: 10px 0 20px;
 }
 
@@ -179,7 +180,7 @@ body {
 
 /* FOOTER
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-.page-footer {
+/* .page-footer {
   text-align: right;
   font-size: 1rem;
   color: var(--text_light);
@@ -212,13 +213,50 @@ body {
 }
 figure, .city-icon {
   margin-top: 0;
-}
+}  */
+
+.cities {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .city {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+        }
+        .city-name {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+        .weather-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+        }
   </style>
 </head>
 <body>
   <h1 id="time"></h1>
   <section class="ajax-section">
     <div class="container">
+      <ul class="citiesMain"></ul>
       <ul class="cities"></ul>
     </div>
   </section>
@@ -272,7 +310,7 @@ figure, .city-icon {
 
   <script type="text/javascript">
     var apiKey = "4d8fb5b93d4af21d66a2948710284366";
-    var list = document.getElementsByClassName("cities")[0];
+    var list = document.getElementsByClassName("citiesMain")[0];
 
 
     function getIcon(xml) {
@@ -291,13 +329,8 @@ figure, .city-icon {
       var icon = ' http://openweathermap.org/img/wn/'+weather[0]["icon"]+'@2x.png';
       // http://openweathermap.org/img/wn/10d@2x.png
       console.log('main', main);
-      var infoName = 'Aktualny domek:';
-      if (name === 'Gilowice') {
-        infoName = 'Przyszły domek:'
-      }
       // + ' <img class="city-icon" src="${icon}" alt="${weather[0]["description"]}"> ' +
       var markup = '<h2 class="city-name">'
-              + '<span>' + infoName + '</span><br />'
               + '<span>'+name+'</span> '
               + '</h2>'
               + '<div class="city-temp">' + Math.round(main.temp) + '<sup>°C</sup></div>'
@@ -328,8 +361,49 @@ figure, .city-icon {
       xhr.send();
     }
 
-    getWeather('Kraków');
+    function get5DayWeather(cityName) {
+      var inputVal = cityName;
+
+      var url = 'https://api.openweathermap.org/data/2.5/forecast?q=' + inputVal + '&appid=' +apiKey + '&units=metric&lang=pl';
+      // list.innerHTML = 'Po Zmiennej';
+        console.log('call?')
+      // fill 5 days to div with id 5days
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url);
+
+      xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var xml = JSON.parse(this.response);
+                    var list = document.getElementsByClassName("cities")[0];
+                    var div = document.createElement("div");
+                    div.classList.add("city");
+                    div.innerHTML = '<h2 class="city-name">'
+                        + '<span>' + inputVal + '</span> '
+                        + '</h2>';
+                    var grid = document.createElement("div");
+                    grid.classList.add("weather-grid");
+                    for (var i = 0; i < 10; i++) {
+                        var item = document.createElement("div");
+                        item.classList.add("weather-item");
+                        var date = new Date(xml.list[i].dt_txt);
+                        var icon = xml.list[i].weather[0].icon;
+                        item.innerHTML = '<span>' + date.getDate() + '.' + (date.getMonth() + 1) + '.' + date.getFullYear() + '</span> '
+                            + '<span>' + date.getHours() + ':00</span> '
+                            + '<span>' + Math.round(xml.list[i].main.temp) + '°C</span> '
+                            + '<span>' + xml.list[i].weather[0].description + '</span> '
+                            + '<img class="weather-icon" src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="Weather icon">';
+                        grid.appendChild(item);
+                    }
+                    div.appendChild(grid);
+                    list.appendChild(div);
+                }
+            };
+            xhr.send();
+
+    }
+
     getWeather('Gilowice');
+    get5DayWeather('Gilowice');
 
   </script>
 
