@@ -221,7 +221,6 @@ body {
 figure, .city-icon {
   margin-top: 0;
 }  */
-
 .cities {
             display: flex;
             flex-wrap: wrap;
@@ -239,25 +238,26 @@ figure, .city-icon {
             margin-bottom: 10px;
         }
         .weather-flex {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.weather-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
-
-.weather-icon {
-    width: 50px;
-    height: 50px;
-}
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .weather-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: calc(20% - 10px); /* Adjust width to fit 5 items in one line */
+        }
+        .weather-icon {
+            width: 50px;
+            height: 50px;
+        }
   </style>
 </head>
 <body>
@@ -388,9 +388,9 @@ figure, .city-icon {
                     div.innerHTML = '<h2 class="city-name">'
                         + '<span>' + inputVal + '</span> '
                         + '</h2>';
-                    var grid = document.createElement("div");
-                    grid.classList.add("weather-grid");
-                    for (var i = 0; i < 10; i++) {
+                    var flexContainer = document.createElement("div");
+                    flexContainer.classList.add("weather-flex");
+                    for (var i = 0; i < 8; i++) {
                         var item = document.createElement("div");
                         item.classList.add("weather-item");
                         var date = new Date(xml.list[i].dt_txt);
@@ -400,9 +400,9 @@ figure, .city-icon {
                             + '<span>' + Math.round(xml.list[i].main.temp) + '°C</span> '
                             + '<span>' + xml.list[i].weather[0].description + '</span> '
                             + '<img class="weather-icon" src="http://openweathermap.org/img/wn/' + icon + '@2x.png" alt="Weather icon">';
-                        grid.appendChild(item);
+                        flexContainer.appendChild(item);
                     }
-                    div.appendChild(grid);
+                    div.appendChild(flexContainer);
                     list.appendChild(div);
                 }
             };
