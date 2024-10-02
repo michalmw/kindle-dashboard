@@ -46,13 +46,20 @@ body {
 
 .container {
   width: 100%;
-  display: grid;
+  display: flex;
+  flex-direction: row;
   gap: 15px;
-  grid-template-columns: 20% 80%;;
   margin: 0 auto;
   padding: 0;
 }
 
+.container > *:first-child {
+  flex: 0 0 20%;
+}
+
+.container > *:nth-child(2) {
+  flex: 1;
+}
 
 /* SECTION #1
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -231,25 +238,26 @@ figure, .city-icon {
             font-size: 1.5em;
             margin-bottom: 10px;
         }
-        .weather-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-        .weather-item {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .weather-icon {
-            width: 50px;
-            height: 50px;
-        }
+        .weather-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.weather-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.weather-icon {
+    width: 50px;
+    height: 50px;
+}
   </style>
 </head>
 <body>
